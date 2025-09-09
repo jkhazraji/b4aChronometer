@@ -1,0 +1,110 @@
+'This code will be applied to the manifest file during compilation.
+'You do not need to modify it in most cases.
+'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136
+AddManifestText(
+<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="34"/>
+<supports-screens android:largeScreens="true" 
+    android:normalScreens="true" 
+    android:smallScreens="true" 
+    android:anyDensity="true"/>
+	android:theme="@style/Theme.Lab3")
+SetApplicationAttribute(android:icon, "@drawable/icon")
+SetApplicationAttribute(android:label, "$LABEL$")
+CreateResourceFromFile(Macro, Themes.LightTheme)
+AddApplicationText(<meta-data
+            android:name="com.google.mlkit.vision.DEPENDENCIES"
+            android:value="ocr" />
+			meta-data
+            android:name="com.google.mlkit.vision.DEPENDENCIES"
+            android:value="object-detecion" />)
+'End of default text.
+CreateResource(layout, mylayout.xml,<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/chronometerInAndroid"
+        android:textColor="#FF0000"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/start" />
+
+    <Button
+        android:id="@+id/stopButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/startButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/stop" />
+
+    <Button
+        android:id="@+id/restartButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stopButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/restart" />
+
+    <Button
+        android:id="@+id/setFormat"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/restartButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/setFormat" />
+
+    <Button
+        android:id="@+id/clearFormat"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/setFormat"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/clearFormat" />
+    <!-- chronometer with black background and red text color >
+    <Chronometer
+        android:id="@+id/simpleChronometer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/clearFormat"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="#000"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="#f00"
+        android:textStyle="bold" /-->
+
+</RelativeLayout>)
+CreateResource(values, string.xml, <resources>
+    <string name="app_name">ChronometerExample</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="chronometerInAndroid">Chronometer In Android</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="restart">Restart</string>
+    <string name="setFormat">Set Format</string>
+    <string name="clearFormat">Clear Format</string>
+</resources>)
+
+
