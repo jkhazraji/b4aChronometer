@@ -1,0 +1,234 @@
+﻿Build1=Default,b4a.example
+File1=horse.jpg
+File2=Layout.bal
+FileGroup1=Default Group
+FileGroup2=Default Group
+Group=Default Group
+Library1=core
+Library2=javaobject
+Library3=reflection
+Library4=xui
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="34"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>~\n~	android:theme="@style/Theme.Lab3")~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~AddApplicationText(<meta-data~\n~            android:name="com.google.mlkit.vision.DEPENDENCIES"~\n~            android:value="ocr" />~\n~			meta-data~\n~            android:name="com.google.mlkit.vision.DEPENDENCIES"~\n~            android:value="object-detecion" />)~\n~'End of default text.~\n~CreateResource(layout, mylayout.xml,<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"~\n~    xmlns:tools="http://schemas.android.com/tools"~\n~    android:layout_width="match_parent"~\n~    android:layout_height="match_parent"~\n~    tools:context=".MainActivity">~\n~~\n~    <TextView~\n~        android:id="@+id/textView1"~\n~        android:layout_width="wrap_content"~\n~        android:layout_height="wrap_content"~\n~        android:layout_alignParentTop="true"~\n~        android:layout_centerHorizontal="true"~\n~        android:layout_marginTop="10dp"~\n~        android:text="@string/chronometerInAndroid"~\n~        android:textColor="#FF0000"~\n~        android:textSize="20dp"~\n~        android:textStyle="bold" />~\n~~\n~    <Button~\n~        android:id="@+id/startButton"~\n~        android:layout_width="200dp"~\n~        android:layout_height="wrap_content"~\n~        android:layout_below="@+id/textView1"~\n~        android:layout_centerHorizontal="true"~\n~        android:layout_marginTop="10dp"~\n~        android:text="@string/start" />~\n~~\n~    <Button~\n~        android:id="@+id/stopButton"~\n~        android:layout_width="200dp"~\n~        android:layout_height="wrap_content"~\n~        android:layout_below="@+id/startButton"~\n~        android:layout_centerHorizontal="true"~\n~        android:layout_marginTop="10dp"~\n~        android:text="@string/stop" />~\n~~\n~    <Button~\n~        android:id="@+id/restartButton"~\n~        android:layout_width="200dp"~\n~        android:layout_height="wrap_content"~\n~        android:layout_below="@+id/stopButton"~\n~        android:layout_centerHorizontal="true"~\n~        android:layout_marginTop="10dp"~\n~        android:text="@string/restart" />~\n~~\n~    <Button~\n~        android:id="@+id/setFormat"~\n~        android:layout_width="200dp"~\n~        android:layout_height="wrap_content"~\n~        android:layout_below="@+id/restartButton"~\n~        android:layout_centerHorizontal="true"~\n~        android:layout_marginTop="10dp"~\n~        android:text="@string/setFormat" />~\n~~\n~    <Button~\n~        android:id="@+id/clearFormat"~\n~        android:layout_width="200dp"~\n~        android:layout_height="wrap_content"~\n~        android:layout_below="@+id/setFormat"~\n~        android:layout_centerHorizontal="true"~\n~        android:layout_marginTop="10dp"~\n~        android:text="@string/clearFormat" />~\n~    <!-- chronometer with black background and red text color >~\n~    <Chronometer~\n~        android:id="@+id/simpleChronometer"~\n~        android:layout_width="wrap_content"~\n~        android:layout_height="wrap_content"~\n~        android:layout_below="@+id/clearFormat"~\n~        android:layout_centerHorizontal="true"~\n~        android:layout_marginTop="20dp"~\n~        android:background="#000"~\n~        android:gravity="center"~\n~        android:padding="10dp"~\n~        android:textColor="#f00"~\n~        android:textStyle="bold" /-->~\n~~\n~</RelativeLayout>)~\n~CreateResource(values, string.xml, <resources>~\n~    <string name="app_name">ChronometerExample</string>~\n~    <string name="hello_world">Hello world!</string>~\n~    <string name="action_settings">Settings</string>~\n~    <string name="chronometerInAndroid">Chronometer In Android</string>~\n~    <string name="start">Start</string>~\n~    <string name="stop">Stop</string>~\n~    <string name="restart">Restart</string>~\n~    <string name="setFormat">Set Format</string>~\n~    <string name="clearFormat">Clear Format</string>~\n~</resources>)~\n~~\n~~\n~
+Module1=Starter
+Module2=XmlViewEx
+NumberOfFiles=2
+NumberOfLibraries=4
+NumberOfModules=2
+Version=13.4
+@EndOfDesignText@
+#Region  Project Attributes 
+	#ApplicationLabel: B4A Example
+	#VersionCode: 1
+	#VersionName: 
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: unspecified
+	#CanInstallToExternalStorage: False
+#End Region
+'Add the text at the end to androidmanifest.xml
+#Region  Activity Attributes 
+	#FullScreen: False
+	#IncludeTitle: True
+#End Region
+
+#AdditionalJar: androidx.annotation:annotation
+
+' Required for proper ML Kit initialization
+#AdditionalJar: kotlin-stdlib-1.6.10
+
+Sub Process_Globals
+	'These global variables will be declared once when the application starts.
+	'These variables can be accessed from all modules.
+	Private xui As XUI
+End Sub
+
+Sub Globals
+	'These global variables will be redeclared each time the activity is created.
+	Private Button1 As Button
+	Private chronometer As JavaObject
+	Private timer1 As Timer
+	Dim ref As Reflector
+	Dim stopButton As Button
+	Dim startButton As Button
+	Dim restartButton As Button
+	Dim setFormat As Button
+	Dim clearFormat As Button
+End Sub
+Sub Activity_Create(FirstTime As Boolean)
+	Activity.LoadLayout("Layout")
+	Dim parentPanel As Panel
+	parentPanel.Initialize("")
+	Activity.AddView(parentPanel, 0, 0, 100%x, 100%y)
+	'parentPanel.Color = xui.Color_Green
+	Dim inflatedView As View =	InflateLayout("mylayout", parentPanel) ' Note: No .xml extension
+	parentPanel.AddView(inflatedView,0,0,100%x, 100%y)
+	createChronometer
+
+	
+	stopButton.Initialize("stop")
+	stopButton= inflatedView.As(JavaObject).RunMethod("findViewById" , Array(GetViewResourceId("stopButton")))
+	
+	Dim event As Object = stopButton.As(JavaObject).CreateEventFromUI("android.view.View.OnClickListener","stop",Null)
+	stopButton.As(JavaObject).RunMethod("setOnClickListener",Array(event))
+	
+	
+	startButton.Initialize("stop")
+	startButton= inflatedView.As(JavaObject).RunMethod("findViewById" , Array(GetViewResourceId("startButton")))
+	
+	Dim event As Object = startButton.As(JavaObject).CreateEventFromUI("android.view.View.OnClickListener","start",Null)
+	startButton.As(JavaObject).RunMethod("setOnClickListener",Array(event))
+	
+	'restartButton
+	
+	
+	restartButton.Initialize("stop")
+	restartButton= inflatedView.As(JavaObject).RunMethod("findViewById" , Array(GetViewResourceId("restartButton")))
+	
+	Dim event As Object = restartButton.As(JavaObject).CreateEventFromUI("android.view.View.OnClickListener","restart",Null)
+	restartButton.As(JavaObject).RunMethod("setOnClickListener",Array(event))
+	
+	'setFormat
+	
+	setFormat.Initialize("stop")
+	setFormat= inflatedView.As(JavaObject).RunMethod("findViewById" , Array(GetViewResourceId("setFormat")))
+	
+	Dim event As Object = setFormat.As(JavaObject).CreateEventFromUI("android.view.View.OnClickListener","setFormat",Null)
+	setFormat.As(JavaObject).RunMethod("setOnClickListener",Array(event))
+	
+	
+	clearFormat.Initialize("stop")
+	clearFormat= inflatedView.As(JavaObject).RunMethod("findViewById" , Array(GetViewResourceId("clearFormat")))
+	
+	Dim event As Object = clearFormat.As(JavaObject).CreateEventFromUI("android.view.View.OnClickListener","clearFormat",Null)
+	clearFormat.As(JavaObject).RunMethod("setOnClickListener",Array(event))
+	
+
+	Log(GetViewResourceId("setFormat"))
+End Sub
+Sub createChronometer
+	' Create Chronometer using JavaObject
+	chronometer.InitializeNewInstance("android.widget.Chronometer", Array(ref.GetContext))
+    
+	' Set layout parameters
+	Dim lp As JavaObject
+	lp.InitializeNewInstance("android.widget.LinearLayout.LayoutParams", _
+        Array(200dip, 50dip)) ' Width, Height
+	chronometer.RunMethod("setLayoutParams", Array(lp))
+    
+	' Set some properties
+	chronometer.RunMethod("setTextSize", Array(24.0f))
+	chronometer.RunMethod("setTextColor", Array(0xFF0000FF)) ' Blue color
+    
+	' Add to activity
+	Activity.AddView(chronometer, 100%x/2 -30dip, 330dip, 200dip, 70dip)
+    
+	' Start the chronometer
+	chronometer.RunMethod("start", Null)
+    
+	
+
+End Sub
+Sub stop_Event(MethodName As String, Args() As Object)
+	Log(MethodName)
+	ToastMessageShow("clicked",True)
+	chronometer.RunMethod("stop", Null)
+	startButton.Text ="RESUME"
+	
+
+End Sub
+Sub start_Event(MethodName As String, Args() As Object)
+	Log(MethodName)
+	ToastMessageShow("clicked",True)
+	chronometer.RunMethod("start", Null)
+
+End Sub
+Sub restart_Event(MethodName As String, Args() As Object)
+	Log(MethodName)
+	ToastMessageShow("clicked",True)
+	'simpleChronometer.setBase(SystemClock.elapsedRealtime());
+	ResetChronometer
+
+End Sub
+
+Sub ResetChronometer
+	' Get the SystemClock class
+	Dim SystemClock As JavaObject
+	SystemClock.InitializeStatic("android.os.SystemClock")
+    
+	' Get current elapsed realtime
+	Dim currentTime As Long = SystemClock.RunMethod("elapsedRealtime", Null)
+    
+	' Set as base for chronometer
+	chronometer.RunMethod("setBase", Array(currentTime))
+End Sub
+Sub clearFormat_Event(MethodName As String, Args() As Object)
+	Log(MethodName)
+	ToastMessageShow("clicked",True)
+	chronometer.RunMethod("setFormat", Array(Null))
+	chronometer.As(View).SetLayoutAnimated(0, 100%x/2 -30dip, 330dip, 200dip, 70dip)
+End Sub
+Sub setFormat_Event(MethodName As String, Args() As Object)
+	Log(MethodName)
+	ToastMessageShow("clicked",True)
+	'//simpleChronometer.setFormat("Time (%s)");
+	chronometer.RunMethod("setFormat", Array("Time (%s)"))
+	chronometer.As(View).SetLayoutAnimated(0, 30%x,330dip,  200dip, 70dip)
+End Sub
+Sub InflateLayout(LayoutName As String, Parent As Panel) As View
+    Dim context As JavaObject
+    context.InitializeContext
+
+    ' Get Resources and LayoutInflater
+    Dim resources As JavaObject
+    resources = context.RunMethod("getResources", Null)
+    
+    Dim inflater As JavaObject
+    inflater = context.RunMethod("getSystemService", Array("layout_inflater"))
+
+    ' Get the resource ID (e.g., R.layout.my_layout)
+    Dim resName As String = LayoutName.Replace(".xml", "") ' Remove .xml extension
+    Dim resID As Int = resources.RunMethod("getIdentifier", Array(resName, "layout",Application.PackageName))
+    
+    If resID = 0 Then
+        Log("Error: Layout file not found in resources - " & LayoutName)
+        Return Null
+    End If
+
+    ' Inflate using the resource ID
+    Dim view As JavaObject
+    view = inflater.RunMethod("inflate", Array(resID, Parent, False))
+
+	'Auto-tag all child views with their IDs
+	'AutoTagViews(view, context)
+    
+
+	Return view
+End Sub
+
+Sub GetViewResourceId(ViewName As String) As Int
+	Dim context As JavaObject
+	context.InitializeContext
+	Dim resources As JavaObject = context.RunMethod("getResources", Null)
+	Dim pkg As String = context.RunMethod("getPackageName", Null)
+	Return resources.RunMethod("getIdentifier", Array(ViewName, "id", pkg))
+End Sub
+
+
+Sub GetLayoutResourceId(LayoutName As String) As Int
+	Dim jo As JavaObject
+	jo.InitializeContext
+	Return jo.RunMethodJO("getResources", Null).RunMethod("getIdentifier", _
+        Array(LayoutName, "layout", jo.RunMethod("getPackageName", Null)))
+End Sub
+
+Sub GetResourceName(ResId As Int) As String
+	Dim jo As JavaObject
+	jo.InitializeContext
+	Dim fullName As String = jo.RunMethodJO("getResources", Null).RunMethod("getResourceName", Array(ResId))
+	Return fullName.SubString(fullName.IndexOf("/")+1)
+End Sub
+
+
+
+Private Sub Button1_Click
+	ToastMessageShow("Button clicked!", False)
+End Sub
